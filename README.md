@@ -1,12 +1,7 @@
-# Warp reference ROI(s) to Subject Space
-This is a template for a [brainlife.io](https://brainlife.io/apps)-compatible app that is designed to warp an ROI (or set of ROIs) _from_ reference space _to_ subject space.  
+# Warp reference Ventral Putamen ROI(s) to Subject Space
+This is a modification of a [template app]() for a [brainlife.io](https://brainlife.io/apps)-compatible app that is designed to warp an ROI (or set of ROIs) _from_ reference space _to_ subject space.  
 
-This app is a bit unusual in that there is **no** input for the ROI that is to be warped (_from_ reference space _to_ subject space).  Why?  In short, the brainlife.io workflow / UI is not designed for a "same file input --> many subjects"-type workflow.  It works best for subject-specific files and workflows.  For example, the inverse of this app exists ([Warp ROIs from subject space to MNI space ](https://brainlife.io/app/5c7319a5badd19003102e8d8)), and follows the convention of "subject-specific file --> (still) subject-specific file".  However, in the current use case, it is assumed that **you** (the user) want to warp some input that is the _exact_ same for all subjects (e.g. an ROI in reference / atlas space) _to_ subject-specific space / orientation.
-
-## How to adapt this template to YOUR desired use case.
-The process for adapting this app to your use case is actually quite simple.  All one needs to do is create a branch / fork of [this repository](https://github.com/DanNBullock/app-warp_refROI_to_subjSpace/tree/master) and then upload the ROIs (_which are themselves in MNI space_) that you wish to warp _to_ subject space.  When that branch / fork is [set up as an app](https://brainlife.io/docs/apps/register/), the resultant brainlife.io app should output the desired ROI(s) in subject space when run with the appropriate inputs.
-
-**TLDR**: Make a fork of this repository and upload your rois to the `rois/` directory. 
+This specific version is designed to warp Left and Right masks of the Ventral Putamen to subject space for subsequent processing and analysis (e.g. segmentation and tracking).
 
 ### Authors
 - [Daniel Bullock](https://github.com/DanNBullock) (dnbulloc@iu.edu)
