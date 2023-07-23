@@ -1,37 +1,23 @@
-[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
-[![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.168-blue.svg)](https://doi.org/10.25663/brainlife.app.168)
+# Warp reference ROI(s) to Subject Space
+This is a template for a [brainlife.io](https://brainlife.io/apps)-compatible app that is designed to warp an ROI (or set of ROIs) _from_ reference space _to_ subject space.  
 
-# Attention ROI warp
-This is a custom made app designed to warp a set of [attention related ROIS located in MNI space](https://github.com/brainlife/Attention_ROI_warp/tree/master/rois) to individual subject space.
+This app is a bit unusual in that there is **no** input for the ROI that is to be warped (_from_ reference space _to_ subject space).  Why?  In short, the brainlife.io workflow / UI is not designed for a "same file input --> many subjects"-type workflow.  It works best for subject-specific files and workflows.  For example, the inverse of this app exists ([Warp ROIs from subject space to MNI space ](https://brainlife.io/app/5c7319a5badd19003102e8d8)), and follows the convention of "subject-specific file --> (still) subject-specific file".  However, in the current use case, it is assumed that **you** (the user) want to warp some input that is the _exact_ same for all subjects (e.g. an ROI in reference / atlas space) _to_ subject-specific space / orientation.
+
+## How to adapt this template to YOUR desired use case.
+The process for adapting this app to your use case is actually quite simple.  All one needs to do is create a branch / fork of [this repository](https://github.com/DanNBullock/app-warp_refROI_to_subjSpace/tree/master) and then upload the ROIs (_which are themselves in MNI space_) that you wish to warp _to_ subject space.  When that branch / fork is [set up as an app](https://brainlife.io/docs/apps/register/), the resultant brainlife.io app should output the desired ROI(s) in subject space when run with the appropriate inputs.
+
+**TLDR**: Make a fork of this repository and upload your rois to the `rois/` directory. 
 
 ### Authors
 - [Daniel Bullock](https://github.com/DanNBullock) (dnbulloc@iu.edu)
 
-### Primary User
-- [Ilaria Sani](https://github.com/IlariaSani) (ila.gina@virgilio.it)
-
-### Contributors
-- [Soichi Hayashi](https://github.com/soichih) (hayashis@iu.edu)
-
-### Project Director
-- [Franco Pestilli](https://github.com/francopestilli) (franpest@indiana.edu)
 
 ### Funding 
-[![NSF-BCS-1734853](https://img.shields.io/badge/NSF_BCS-1734853-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1734853)
-[![NSF-BCS-1636893](https://img.shields.io/badge/NSF_BCS-1636893-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1636893)
-[![NSF-ACI-1916518](https://img.shields.io/badge/NSF_ACI-1916518-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1916518)
-[![NSF-IIS-1912270](https://img.shields.io/badge/NSF_IIS-1912270-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1912270)
-[![NIH-NIBIB-R01EB029272](https://img.shields.io/badge/NIH_NIBIB-R01EB029272-green.svg)](https://grantome.com/grant/NIH/R01-EB029272-01)
-[![NIMH-T32-5T32MH103213-05](https://img.shields.io/badge/NIMH_T32-5T32MH103213--05-blue.svg)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9725739)
-[SANI FUNDING GOES HERE]
+(weekend work)
 
 ### References 
 [Avesani, P., McPherson, B., Hayashi, S. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019).](https://doi.org/10.1038/s41597-019-0073-y)
 
-**The human attentional control network includes a ventro-temporal cortical node**,
-_Ilaria Sani, Heiko Stemmann, Bradley Caron, Daniel Bullock, Torsten
-Stemmler, Manfred Fahle, Franco Pestilli, Winrich A. Freiwald_
-**UNDER REVIEW**
 
 [ANTs](http://picsl.upenn.edu/software/ants/)
 
@@ -43,17 +29,18 @@ Stemmler, Manfred Fahle, Franco Pestilli, Winrich A. Freiwald_
 
 -[mask [brain]](https://brainlife.io/datatypes/5a281aee2c214c9ba83ce620) - the brain mask for this subjet
 
+
 ### On Brainlife.io
 
-Visit [this site](https://doi.org/10.25663/brainlife.app.168) to run this app on the brainlife.io platform.  Minimally requires the aforementioned data inputs.
+THIS VERSION / REPOSITORY IS NOT TO BE RUN DIRECTLY ON BRAINLIFE.IO.  RATHER, IN ACCORDANCE WITH THE INSTRUCTIONS 
 
 ### Running Locally (on your machine) using singularity & docker
 
-Because this is compiled code which runs on singularity, you can download the repo and [run it locally with minimal setup](https://github.com/brainlife/Attention_ROI_warp/blob/276bbc6210cf6dbc5b715e9327ad89e091634a8a/main#L9).  
+Because this is compiled code which runs on singularity, you can download the repo and [run it locally with minimal setup]
 
 ### Running Locally (on your machine)
 
-The primary script for this application is located [here](https://github.com/brainlife/Attention_ROI_warp/blob/master/CoordTransform.sh), but will require the [MNI T1 template](https://github.com/brainlife/Attention_ROI_warp/blob/276bbc6210cf6dbc5b715e9327ad89e091634a8a/CoordTransform.sh#L21) and [brain mask](https://github.com/brainlife/Attention_ROI_warp/blob/276bbc6210cf6dbc5b715e9327ad89e091634a8a/CoordTransform.sh#L22).  Examples of the template can be found [here](http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009) and [here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlases).  Futhermore, this application makes use of [ANTs](http://picsl.upenn.edu/software/ants/), which can be downloaded [here](https://github.com/ANTsX/ANTs).
+The primary script for this application is located [here](https://github.com/DanNBullock/app-warp_refROI_to_subjSpace/blob/master/CoordTransform.sh), but will require the [MNI T1 template](https://github.com/DanNBullock/app-warp_refROI_to_subjSpace/blob/2e3e26993617897b34e52456d39e24947a09ba0e/CoordTransform.sh#L21) and [brain mask](https://github.com/DanNBullock/app-warp_refROI_to_subjSpace/blob/2e3e26993617897b34e52456d39e24947a09ba0e/CoordTransform.sh#L22).  Examples of the template can be found [here](http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009) and [here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlases).  Futhermore, this application makes use of [ANTs](http://picsl.upenn.edu/software/ants/), which can be downloaded [here](https://github.com/ANTsX/ANTs).
 
 ### Sample Datasets
 
@@ -64,7 +51,7 @@ TBD
 There is one output type generated by this application:
 - [ROIS](https://brainlife.io/datatypes/5be9ea0315a8683a39a1ebd9)
 
-[**ROIS**](https://brainlife.io/datatypes/5be9ea0315a8683a39a1ebd9) - a set of rois, corresponding to the MNI space ROIS found [here](https://github.com/brainlife/Attention_ROI_warp/tree/master/rois)
+[**ROIS**](https://brainlife.io/datatypes/5be9ea0315a8683a39a1ebd9) - a set of rois, corresponding to the MNI space ROIS found in the `rois` directory of this repository
 
 #### Product.json
 
