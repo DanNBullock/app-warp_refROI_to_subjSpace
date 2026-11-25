@@ -1,4 +1,37 @@
 # Warp reference ROI(s) to Subject Space
+
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Warps left and right ventral putamen ROIs from MNI152 space into a subject's T1-weighted space using an ANTs rigid, affine and SyN registration and its inverse.**
+
+Registers the subject brain to the MNI152 1 mm template with antsRegistration (rigid, affine, SyN, using the subject brain mask), then applies the inverse warp and affine with antsApplyTransforms to the bundled ventral putamen masks so they land on the subject T1 grid. Use the resulting ROIs for subject-level segmentation or tracking. The README states this branch is not meant to be run directly on brainlife.io but as part of a specific workflow.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/anat/t1w` · `neuro/mask` |
+| 📤 **Outputs** | `neuro/rois` |
+| 🐳 **Container** | `brainlife/ants:2.2.0` |
+| ⚙️ **Resources** | 8 CPUs · 18 h walltime |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.792](https://doi.org/10.25663/brainlife.app.792) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `t1` | `neuro/anat/t1w` | yes | Subject T1-weighted image; the ROIs are resampled onto its grid. Should be skull-stripped (registration uses the MNI152 brain template). |
+| `brainMask` | `neuro/mask` (brain) | yes | This is used to align the subject's data to the MNI152 template. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `output` | `neuro/rois` | The post-warp (now in subject space) ROI(s) |
+
+📚 **References used by this App:**
+- Avesani P et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
+
+<!-- brainlife-app:end -->
+
 This is a template for a [brainlife.io](https://brainlife.io/apps)-compatible app that is designed to warp an ROI (or set of ROIs) _from_ reference space _to_ subject space.  
 
 This app is a bit unusual in that there is **no** input for the ROI that is to be warped (_from_ reference space _to_ subject space).  Why?  In short, the brainlife.io workflow / UI is not designed for a "same file input --> many subjects"-type workflow.  It works best for subject-specific files and workflows.  For example, the inverse of this app exists ([Warp ROIs from subject space to MNI space ](https://brainlife.io/app/5c7319a5badd19003102e8d8)), and follows the convention of "subject-specific file --> (still) subject-specific file".  However, in the current use case, it is assumed that **you** (the user) want to warp some input that is the _exact_ same for all subjects (e.g. an ROI in reference / atlas space) _to_ subject-specific space / orientation.
